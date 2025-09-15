@@ -1,3 +1,7 @@
+#Terraform
 .terraform/
 *.tfstate.d
 .terraform.lock.hcl
+
+#Ignorar y no subir secret files c:
+secrets.tfvars

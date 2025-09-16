@@ -20,7 +20,10 @@ resource "docker_container" "grafana" {
     container_path = "/var/lib/grafana"
   }
 
-  
+  env = [
+    "GF_SECURITY_ADMIN_USER=admin",
+    "GF_SECURITY_ADMIN_PASSWORD=${var.grafana_admin_password}"
+  ]
 
 #reincia si falla pero no si lo detienes
   restart = "unless-stopped"

@@ -11,17 +11,17 @@ grafana_external_port = {
   prod = 3000
 }
 
-# Redis
-#redis_external_port = {
-#  dev  = 6370
-#  qa   = 6371
-#  prod = 6379
-#}
+redis_external_port = {
+  dev  = 6370
+  qa   = 6371
+  prod = 6372
+}
 
+postgres_external_port = {
+  dev  = 5432
+  qa   = 5433
+  prod = 5434
+}
 
-# PostgreSQL
-#postgres_external_port = {
-#  dev  = 5433
-#  qa   = 5434
-#  prod = 5432
-#}
+postgres_user = "admin"
+postgres_db   = "appdb"

@@ -4,7 +4,7 @@ resource "docker_volume" "grafana_data" {
 
 resource "docker_container" "grafana" {
   name  = "grafana-${terraform.workspace}"
-  image = "grafana/grafana-oss:latest"
+  image = "grafana/grafana-oss:10.4.2"
 
   networks_advanced {
     name = docker_network.monitor_net.name
@@ -21,10 +21,10 @@ resource "docker_container" "grafana" {
   }
 
   env = [
-    "GF_SECURITY_ADMIN_USER=admin",
+    "GF_SECURITY_ADMIN_USER=${var.grafana_admin_user}",
     "GF_SECURITY_ADMIN_PASSWORD=${var.grafana_admin_password}"
   ]
 
-#reincia si falla pero no si lo detienes
-  restart = "unless-stopped"
+  restart    = "unless-stopped"
+  depends_on = [docker_network.monitor_net]
 }

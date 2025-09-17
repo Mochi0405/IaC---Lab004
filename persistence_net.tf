@@ -3,7 +3,6 @@ resource "docker_network" "persistence_net" {
   name = "persistence_net"
 }
 
-# Volúmenes
 resource "docker_volume" "redis_data" {
   name = "redis_data_${terraform.workspace}"
 }
@@ -12,10 +11,10 @@ resource "docker_volume" "postgres_data" {
   name = "postgres_data_${terraform.workspace}"
 }
 
-# Contenedor Redis
+# Redis
 resource "docker_container" "redis" {
   name  = "redis-${terraform.workspace}"
-  image = "redis:alpine"
+  image = "redis:7.2-alpine"
 
   networks_advanced {
     name = docker_network.persistence_net.name
@@ -31,13 +30,14 @@ resource "docker_container" "redis" {
     container_path = "/data"
   }
 
-  restart = "unless-stopped"
+  restart    = "unless-stopped"
+  depends_on = [docker_network.persistence_net]
 }
 
-# Contenedor PostgreSQL
+# Postgres
 resource "docker_container" "postgres" {
   name  = "postgres-${terraform.workspace}"
-  image = "postgres:15-alpine"
+  image = "postgres:15.7-alpine"
 
   networks_advanced {
     name = docker_network.persistence_net.name
@@ -59,6 +59,6 @@ resource "docker_container" "postgres" {
     container_path = "/var/lib/postgresql/data"
   }
 
-  restart = "unless-stopped"
+  restart    = "unless-stopped"
+  depends_on = [docker_network.persistence_net]
 }
-

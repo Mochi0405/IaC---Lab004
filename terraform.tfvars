@@ -1,26 +1,37 @@
-nginx_external_port = {
+# Puertos por workspace
+grafana_external_port = {
   dev  = 3000
-  qa   = 4000
-  prod = 81
+  qa   = 43000
+  prod = 53000
 }
 
-# Grafana
-grafana_external_port = {
-  dev  = 3100
-  qa   = 3200
-  prod = 3000
+#Puertos expuestos
+app1_external_port = {
+  dev  = 8081
+  qa   = 48081
+  prod = 58081
+}
+app2_external_port = {
+  dev  = 8082
+  qa   = 48082
+  prod = 58082
+}
+app3_external_port = {
+  dev  = 8083
+  qa   = 48083
+  prod = 58083
 }
 
 redis_external_port = {
-  dev  = 6370
-  qa   = 6371
-  prod = 6372
+  dev  = 6379
+  qa   = 46379
+  prod = 56379
 }
 
 postgres_external_port = {
   dev  = 5432
-  qa   = 5433
-  prod = 5434
+  qa   = 45432
+  prod = 55432
 }
 
 postgres_user = "admin"

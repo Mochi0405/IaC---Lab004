@@ -1,6 +1,11 @@
 # Infraestructura DEV con Docker + Terraform (AppNet / MonitorNet / PersistenceNet)
 
-Este proyecto reproduce la topología del diagrama:  
+Este proyecto reproduce la topología del diagrama: 
+
+## Diagrama de topología
+
+![Diagrama de topología](docs/LAB002-IMAGEN.png)
+
 - **`app_net`**: tres apps **idénticas** (`app1`, `app2`, `app3`, imagen nginx)  
 - **`monitor_net`**: **Grafana**  
 - **`persistence_net`**: **Redis** y **PostgreSQL**  

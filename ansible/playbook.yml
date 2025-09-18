@@ -1,0 +1,33 @@
+---
+- name: Configurar Nginx proxy con round-robin
+  hosts: local
+  vars:
+    workspace: dev                   
+    repo_root: "{{ playbook_dir | dirname }}"
+    
+
+  tasks:
+    - name: Asegurar carpeta proxy existe
+      file:
+        path: "{{ repo_root }}/proxy"
+        state: directory
+
+    - name: Renderizar configuración Nginx del proxy
+      template:
+        src: templates/nginx.conf.j2
+        dest: "{{ repo_root }}/proxy/default.conf"
+        mode: "0644"
+
+    # Opción A: si tienes docker CLI en WSL
+    - name: Recargar Nginx dentro del contenedor proxy (WSL con docker)
+      shell: docker exec proxy-{{ workspace }} nginx -s reload
+      register: reload_result
+      changed_when: reload_result.rc == 0
+      when: docker_bin is not defined
+
+    # Opción B: si usas docker.exe de Windows desde WSL
+    - name: Recargar Nginx dentro del contenedor proxy (docker.exe)
+      shell: '"{{ docker_bin }}" exec proxy-{{ workspace }} nginx -s reload'
+      register: reload_result_win
+      changed_when: reload_result_win.rc == 0
+      when: docker_bin is defined
